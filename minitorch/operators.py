@@ -1,6 +1,7 @@
 """Collection of the core mathematical operators used throughout the code base."""
 
 import math
+from typing import Callable, Iterable
 
 # ## Task 0.1
 
@@ -130,4 +131,78 @@ def relu_back(x1: float, x2: float) -> float:
 # - prod: take the product of lists
 
 
-# TODO: Implement for Task 0.3.
+def map(
+    function: Callable[[float], float],
+) -> Callable[[Iterable[float]], Iterable[float]]:
+    """Maps given function to each element of Iterable
+
+    Arguments:
+    ---------
+        function - function being applied to Iterable
+    Returns:
+        function "inner" - function, which applies function(argument) to array (argument)
+
+    """
+
+    def inner(array: Iterable[float]) -> Iterable[float]:
+        result = []
+        for item in array:
+            result.append(function(item))
+        return result
+
+    return inner
+
+
+def zipWith(
+    zipper: Callable[[float, float], float],
+) -> Callable[[Iterable[float], Iterable[float]], Iterable[float]]:
+    """Zips 2 Iterables using given function
+
+    Arguments:
+    ---------
+        zipper - function applied to element couples to combine them
+    Returns:
+        function "inner" - function, which applies zipper to couples of arrays
+
+    """
+
+    def inner(array1: Iterable[float], array2: Iterable[float]) -> Iterable[float]:
+        result = []
+        for item1, item2 in zip(array1, array2):
+            result.append(zipper(item1, item2))
+        return result
+
+    return inner
+
+
+def reduce(
+    reducer: Callable[[float, float], float],
+) -> Callable[[Iterable[float]], float]:
+    """Reduces Iterable to one scalar using reducer function
+
+    Arguments:
+    ---------
+        reducer - function being used to manipulate scalars
+    Returns:
+        function "inner" - function, which applies reducer to array (argument)
+
+    """
+
+    def inner(array: Iterable[float]) -> float:
+        result = 0.0
+        for i, item in enumerate(array):
+            if i == 0:
+                result = item
+            else:
+                result = reducer(result, item)
+        return result
+
+    return inner
+
+
+# Special functions
+
+negList = map(neg)
+addLists = zipWith(add)
+sum = reduce(add)
+prod = reduce(lambda x, y: x * y)
