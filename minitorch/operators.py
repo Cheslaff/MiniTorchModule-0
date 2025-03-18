@@ -3,7 +3,6 @@
 import math
 
 # ## Task 0.1
-from typing import Callable, Iterable
 
 #
 # Implementation of a prelude of elementary functions.
@@ -33,6 +32,86 @@ from typing import Callable, Iterable
 
 
 # TODO: Implement for Task 0.1.
+
+
+def mul(x1: float, x2: float) -> float:
+    """Returns x1 * x2"""
+    return x1 * x2
+
+
+def id(x: float) -> float:
+    """Returns x untouched"""
+    return x
+
+
+def add(x1: float, x2: float) -> float:
+    """Returns x1 + x2"""
+    return x1 + x2
+
+
+def neg(x: float) -> float:
+    """Returns x multiplied by -1"""
+    return -x
+
+
+def lt(x1: float, x2: float) -> bool:
+    """Returns True if x1 < x2 else False"""
+    return x1 < x2
+
+
+def eq(x1: float, x2: float) -> bool:
+    """Returns True if x1==x2 else False"""
+    return x1 == x2
+
+
+def max(x1: float, x2: float) -> float:
+    """Returns maximum from x1 and x2"""
+    return x1 if x1 > x2 else x2
+
+
+def is_close(x1: float, x2: float) -> float:
+    """Checks whether two numbers are close |x1-x2| < 1e-2"""
+    return abs(x1 - x2) < 1e-2
+
+
+def sigmoid(x: float) -> float:
+    """Sigmoid Activation Function: https://en.wikipedia.org/wiki/Sigmoid_function"""
+    return 1 / (1 + math.exp(-x))
+
+
+def relu(x: float) -> float:
+    """ReLU Activation Function: https://en.wikipedia.org/wiki/Rectifier_(neural_networks)"""
+    return x if x > 0 else 0
+
+
+def log(x: float) -> float:
+    """Logarithm of value x"""
+    return math.log(x)
+
+
+def exp(x: float) -> float:
+    """Exponentiation of value x"""
+    return math.exp(x)
+
+
+def inv(x: float) -> float:
+    """Inverse of a scalar value"""
+    return 1 / x
+
+
+def log_back(x1: float, x2: float) -> float:
+    """Backward pass for log multiplied by 2nd variable"""
+    return inv(x1) * x2
+
+
+def inv_back(x1: float, x2: float) -> float:
+    """Backward pass for inv multiplied by 2nd variable"""
+    return -1 / x1**2 * x2
+
+
+def relu_back(x1: float, x2: float) -> float:
+    """Backward pass for relu multiplied by 2nd variable"""
+    return (x1 > 0) * x2
 
 
 # ## Task 0.3

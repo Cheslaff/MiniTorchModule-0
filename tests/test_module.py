@@ -2,8 +2,11 @@ import pytest
 from hypothesis import given
 
 import minitorch
+import sys
+import os
 
-from .strategies import med_ints, small_floats
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+from strategies import med_ints, small_floats
 
 # # Tests for module.py
 
