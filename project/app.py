@@ -58,7 +58,7 @@ if module_selection == "Module 0":
 
     PAGES["Torch Example"] = render_run_torch_interface
     PAGES["Module 0: Manual"] = render_run_manual_interface
-
+"""
 if module_selection == "Module 1":
     from run_scalar import ScalarTrain
     from show_expression_interface import render_show_expression
@@ -108,7 +108,7 @@ if module_selection == "Module 4":
     PAGES["Module 4: Images"] = render_run_image_interface
     PAGES["Module 4: Sentiment"] = render_run_sentiment_interface
 
-
+"""
 PAGE_OPTIONS = list(PAGES.keys())
 
 page_selection = st.sidebar.radio("Pages", PAGE_OPTIONS)

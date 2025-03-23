@@ -3,12 +3,12 @@ import torch
 import minitorch
 
 
-def default_log_fn(epoch, total_loss, correct, losses):
+def default_log_fn(epoch, total_loss, correct, losses): # type: ignore
     print("Epoch ", epoch, " loss ", total_loss, "correct", correct)
 
 
 class Network(torch.nn.Module):
-    def __init__(self, hidden_layers):
+    def __init__(self, hidden_layers): # type: ignore
         super().__init__()
 
         # Submodules

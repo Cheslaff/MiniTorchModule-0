@@ -1,6 +1,9 @@
 import pytest
 from hypothesis import given
+from typing import List, Callable, Tuple
 
+import minitorch
+from minitorch.testing import MathTest
 from minitorch.operators import (
     add,
     addLists,
@@ -27,7 +30,7 @@ import sys
 import os
 
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
-from strategies import assert_close, small_floats
+from strategies import assert_close, small_floats, lists
 
 # ## Task 0.1 Basic hypothesis tests.
 
@@ -174,8 +177,7 @@ def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
     Write a test that ensures that the sum of `ls1` plus the sum of `ls2`
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
-    # TODO: Implement for Task 0.3.
-    raise NotImplementedError("Need to implement for Task 0.3")
+    assert_close(add(sum(ls1), sum(ls2)), sum(addLists(ls1, ls2)))
 
 
 @pytest.mark.task0_3

@@ -31,13 +31,15 @@ class Module:
 
     def train(self) -> None:
         """Set the mode of this module and all descendent modules to `train`."""
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
-
+        self.training = True
+        for module in self._modules.values():
+            module.train()
+        
     def eval(self) -> None:
         """Set the mode of this module and all descendent modules to `eval`."""
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        self.training = False
+        for module in self._modules.values():
+            module.eval()
 
     def named_parameters(self) -> Sequence[Tuple[str, Parameter]]:
         """Collect all the parameters of this module and its descendents.
@@ -47,14 +49,21 @@ class Module:
             The name and `Parameter` of each ancestor parameter.
 
         """
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
-
+        def inner(module: Module, prefix=""):  # type: ignore
+            # QUESTION: read about yield
+            for name, parameter in module._parameters.items():
+                yield prefix+name, parameter
+            for submodulename, submodule in module._modules.items():
+                yield from inner(submodule, prefix=f"{prefix}{submodulename}.")
+        return list(inner(self))
+    
     def parameters(self) -> Sequence[Parameter]:
         """Enumerate over all the parameters of this module and its descendents."""
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
-
+        result = []
+        for parameter in self.named_parameters():
+            result.append(parameter[1])
+        return result
+    
     def add_parameter(self, k: str, v: Any) -> Parameter:
         """Manually add a parameter. Useful helper for scalar parameters.
 
@@ -147,3 +156,19 @@ class Parameter:
 
     def __str__(self) -> str:
         return str(self.value)
+
+"""
+module_johnbob = Module()
+module_biba = Module()
+module_boba = Module()
+module_biba.add_parameter("bibi", 25)
+module_biba.add_parameter("bobi", 26)
+module_boba.add_parameter("johnbob", 20)
+module_biba._modules["johnbob"] = module_johnbob
+module_boba._modules["biba"] = module_biba
+
+module_boba.train()
+print(module_johnbob.training)
+print(module_boba.named_parameters())
+print(module_boba.parameters())
+"""
